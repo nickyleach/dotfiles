@@ -1,0 +1,33 @@
+[apply]
+	whitespace = fix
+[core]
+	excludesfile = ~/.gitignore
+	attributesfile = ~/.gitattributes
+	whitespace = fix,space-before-tab,tab-in-indent,trailing-space
+[color]
+	ui = true
+[merge]
+	log = true
+[url "git@github.com:"]
+	insteadOf = "gh:"
+	pushInsteadOf = "github:"
+	pushInsteadOf = "git://github.com/"
+[url "git://github.com/"]
+	insteadOf = "github:"
+[url "git@gist.github.com:"]
+	insteadOf = "gst:"
+	pushInsteadOf = "gist:"
+	pushInsteadOf = "git://gist.github.com/"
+[url "git://gist.github.com/"]
+	insteadOf = "gist:"
+[alias]
+	sync = "!f(){ local branch=`git branch 2> /dev/null | sed -e '/^[^*]/d' -e \"s/* \\(.*\\)/\\1/\"`; if [ $(git branch -a | grep \"$branch\" | wc -l) -eq \"1\" ]; then git push origin $branch; else git pull origin $branch && git push origin $branch; fi }; f"
+	log-graph = log --all --graph --decorate
+	log-refs = log --all --graph --decorate --oneline --simplify-by-decoration --no-merges
+	log-timeline = log --format='%Cred%h%Creset %an %Cgreen(%ar)%Creset - %s'
+	clear = "!f(){ git add . && git stash && git stash drop; }; f"
+	branch-diff = "!f(){ git log --pretty=oneline --reverse $1..$2; }; f"
+	merge-branch-diff = "!f(){ git merge `git log --reverse --pretty=format:\"%H\" $1..$2 | tr '\n' ' '` -m \"$3\"; }; f"
+	cherry-pick-branch-diff = "!f(){ for commit in `git log --reverse --pretty=format:\"%H\" $1..$2`; do git cherry-pick -n $commit; done; git commit -am \"$3\"; }; f"
+	syntax-check = "!f(){ for file in $(git status --porcelain | grep '.php' | awk '{ print $2; }'); do php -l $file; done }; f"
+	
