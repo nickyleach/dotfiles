@@ -30,4 +30,4 @@
 	merge-branch-diff = "!f(){ git merge `git log --reverse --pretty=format:\"%H\" $1..$2 | tr '\n' ' '` -m \"$3\"; }; f"
 	cherry-pick-branch-diff = "!f(){ for commit in `git log --reverse --pretty=format:\"%H\" $1..$2`; do git cherry-pick -n $commit; done; git commit -am \"$3\"; }; f"
 	syntax-check = "!f(){ for file in $(git status --porcelain | grep '.php' | awk '{ print $2; }'); do php -l $file; done }; f"
-	
+	delete-branch = "!f(){ git branch -D $1; git push origin :$1; }; f"
