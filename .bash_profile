@@ -4,7 +4,7 @@
 
 # git customization
 source ~/.git-completion.bash
-export PS1="\[\033[38m\]\u@\h\[\033[01;34m\] \w \[\033[31m\]$(__git_ps1 "(%s)")\[\033[37m\]$\[\033[00m\] "
+export PS1="\[\033[38m\]\u@\h\[\033[01;34m\] \w\[\033[31m\]\$(__git_ps1)\[\033[37m\]$\[\033[00m\] "
 
 # Case-insensitive globbing (used in pathname expansion)
 shopt -s nocaseglob
